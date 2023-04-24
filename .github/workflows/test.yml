@@ -13,10 +13,10 @@ jobs:
         uses: SpicyPizza/create-envfile@v1.3
         with:
           envkey_POSTGRES_USER: "postgres"
-          envkey_POSTGRES_PASSWORD: "123456"
-          envkey_POSTGRES_DB: "drivenops_test"
-          envkey_DATABASE_URL: "postgres://postgres:123456@db:5432/drivenops_test"
-          directory: back-end/
+          envkey_POSTGRES_PASSWORD: "postgres"
+          envkey_POSTGRES_DB: "mmh_test"
+          envkey_DATABASE_URL: "postgres://postgres:postgres@db:5432/mmh_test"
+          directory: ./
           file_name: .env.test
       - name: Run tests
         run: docker compose --file ./docker-compose.test.yml --env-file ./.env.test up --build --abort-on-container-exit --exit-code-from test-meet-me-here-api
