@@ -18,6 +18,19 @@ jobs:
           envkey_POSTGRES_HOST: "test-meet-me-here-postgres"
           envkey_POSTGRES_PORT: "5432"
           envkey_DATABASE_URL: "postgres://postgres:postgres@test-meet-me-here-postgres:5432/mmh_test"
+
+          envkey_NODE_ENV: development
+          envkey_PORT: "4000"
+          envkey_BCRYPT_SALT: "10"
+          envkey_JWT_SALT: "salt"
+          envkey_JWT_EXPIRES_IN: "100d"
+
+          envkey_EMAIL_CONTACT: "g.cari@appstorm.com.br"
+          envkey_EMAIL_PORT: "2525"
+          envkey_EMAIL_HOST: "smtp.mailtrap.io"
+          envkey_EMAIL_AUTH_USER: "5f0238e3c5260b"
+          envkey_EMAIL_AUTH_PASS: "ace6019d3433f9"
+
           directory: ./
           file_name: .env.test
       - name: Run tests
