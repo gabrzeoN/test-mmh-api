@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Meeting Scheduler API",
+    "description": "API to application MS",
+    "termsOfService": "http://localhost:5000/terms",
+    "contact": {
+      "email": "g.cari@hotmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "description": "Test API",
+      "url": "http://localhost:5000/v1"
+    }
+  ],
+  "paths": {
+    "/users/sign-up": {
+      "post": {
+        "summary": "Register user",
+        "description": "Responsable for creating an user of type client.",
+        "tags": ["Auth"],
+        
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "test@hotmail.com",
+                    "password": "testPassword123"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }    
+  },
+
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

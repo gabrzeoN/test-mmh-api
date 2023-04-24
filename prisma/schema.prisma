@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Professionals {
+  id               String           @id @default(uuid())
+  name             String
+  email            String           @unique
+  password         String
+  phone            String?
+  cpf              String
+  avatarUrl        String?
+  tokenTemp        String           @unique
+  isEmailConfirmed Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  // is FK to the followings:
+  apointments      Appointments[]
+  // has the followings as FK:
+  specializationId String?
+  specialization   Specializations? @relation(fields: [specializationId], references: [id])
+
+  @@map("professionals")
+}
+
+model Users {
+  id               String         @id @default(uuid())
+  publicId         String         @default(uuid())
+  name             String
+  email            String         @unique
+  password         String
+  phone            String?
+  cpf              String
+  avatarUrl        String?
+  tokenTemp        String         @unique
+  isEmailConfirmed Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  // is FK to the followings:
+  apointments      Appointments[]
+  // has the followings as FK:
+  profileId        String?
+  profile          Profiles?      @relation(fields: [profileId], references: [id])
+  // military profile
+  prec             String?
+  militaryId       String?
+
+  @@map("users")
+}
+
+model Specializations {
+  id            String          @id @default(uuid())
+  name          String          @unique
+  // is FK to the followings:
+  Professionals Professionals[]
+
+  @@map("specializations")
+}
+
+model Profiles {
+  id    String  @id @default(uuid())
+  name  String  @unique
+  // is FK to the followings:
+  Users Users[]
+
+  @@map("profiles")
+}
+
+model Appointments {
+  id             String        @id @default(uuid())
+  comments       String
+  datetime       DateTime      @default(now())
+  createdAt      DateTime      @default(now())
+  // has the followings as FK:
+  userId         String
+  user           Users         @relation(fields: [userId], references: [id])
+  professionalId String
+  professional   Professionals @relation(fields: [professionalId], references: [id])
+
+  @@map("appointments")
+}

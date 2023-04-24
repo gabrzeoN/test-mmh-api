@@ -1,0 +1,37 @@
+version: '4'
+
+services:
+  meet-me-here-postgres:
+    container_name: meet-me-here-postgres
+    image: postgres:15.1
+    restart: always
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+    volumes:
+      - meet-me-here-postgres-data:/var/lib/postgresql/data
+    command: postgres -p ${POSTGRES_PORT}
+
+  meet-me-here-api:
+    container_name: meet-me-here-api
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    restart: always
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./:/app/api
+    depends_on:
+      - meet-me-here-postgres
+    command: bash -c "dotenv -e .env.dev -- npx prisma migrate dev && dotenv -e .env.dev -- npm run dev:localhost"
+
+volumes:
+  meet-me-here-postgres-data:
