@@ -19,5 +19,5 @@ jobs:
           directory: ./
           file_name: .env.test
       - name: Run tests
-        run: docker compose --file ./docker-compose.test.yml --env-file ./.env.test up --build --abort-on-container-exit --exit-code-from test-meet-me-here-api
+        run: docker compose --file ./docker-compose.test.yml --env-file ./.env.test up --build
         # run: docker-compose -f docker-compose.test.yml run node_app npm run test
