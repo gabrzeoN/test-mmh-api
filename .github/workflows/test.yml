@@ -1,8 +1,5 @@
 name: PullRequest
-on:
-  push:
-    branches:
-      - main
+on: [pull_request]
 jobs:
   PullRequest:
     runs-on: ubuntu-latest
@@ -14,7 +11,9 @@ jobs:
         with:
           envkey_POSTGRES_USER: "postgres"
           envkey_POSTGRES_PASSWORD: "postgres"
-          envkey_POSTGRES_DB: "mmh_test"
+          envkey_POSTGRES_DATABASE: "mmh_test"
+          envkey_POSTGRES_HOST: "test-meet-me-here-postgres"
+          envkey_POSTGRES_PORT: "5432"
           envkey_DATABASE_URL: "postgres://postgres:postgres@db:5432/mmh_test"
           directory: ./
           file_name: .env.test
