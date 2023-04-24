@@ -12,4 +12,4 @@ Localhost:
   Docker-compose:
   - .env.dev
 
-# FOR PRODUCTIONa
+# FOR PRODUCTIONb
