@@ -20,4 +20,4 @@ services:
       dockerfile: Dockerfile.test
     depends_on:
       - test-meet-me-here-postgres
-    command: bash -c "npm run test:unit:localhost"
+    command: bash -c "dotenv -e .env.test -- npx prisma migrate dev && dotenv -e .env.test -- npm run test:unit:localhost"
