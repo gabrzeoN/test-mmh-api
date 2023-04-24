@@ -14,12 +14,6 @@ beforeEach(() => {
 });
 
 describe("authUseCase/mustNotExistByEmail", () => {
-  it("should fail", () => {
-    const user = new AuthFactory().getSignUpInput();
-    jest.spyOn(authRepository, "getByEmail").mockImplementationOnce(():any => user);
-    const promise = useCase.mustNotExistByEmail("users", user.email);
-    expect(promise).rejects.toStrictEqual(0);
-  });
   it("should throw exist user by email", () => {
     const user = new AuthFactory().getSignUpInput();
     jest.spyOn(authRepository, "getByEmail").mockImplementationOnce(():any => user);
